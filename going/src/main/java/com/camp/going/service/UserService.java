@@ -120,7 +120,7 @@ public class UserService {
         log.info("이메일: {}", email);
 
         // 현재 로그인한 회원의 모든 정보 조회
-        User oneUser = userMapper.findUser(email.trim());
+        User oneUser = userMapper.findUser(email);
 
         // DB 데이터를 보여줄 것만 정제
         LoginUserResponseDTO dto = LoginUserResponseDTO.builder()
