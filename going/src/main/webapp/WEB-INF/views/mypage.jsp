@@ -117,8 +117,12 @@
                     -->
                     <!-- 캠프장 사진  -->
                     <div class="CampImgbox">
-                        <img src="${c.campImage}" alt="img">
-
+                        <c:if test="${c.campName == null}">
+                            <img src="/assets/img/camping_image/001.png" alt="img">
+                        </c:if>
+                        <c:if test="${c.campName != null}">
+                            <img src="${c.campImage}" alt="img">
+                        </c:if>
                     </div>
 
                 </wrap>
