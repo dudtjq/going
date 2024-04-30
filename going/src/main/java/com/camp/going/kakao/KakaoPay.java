@@ -28,7 +28,7 @@ public class KakaoPay {
 
 
     @GetMapping("/kakaopay")
-    public String kakaoPay(Model model){
+    public String kakaoPay(){
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -93,7 +93,7 @@ public class KakaoPay {
         }
 
 
-        return "index";
+        return "redirect:/main/reservation";
     }
 
 
