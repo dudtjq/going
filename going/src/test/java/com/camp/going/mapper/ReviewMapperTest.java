@@ -28,7 +28,7 @@ class ReviewMapperTest {
             Review review = new Review();
             review.setReviewContent("리뷰 " + i + "번 내용 테스트");
             review.setEmail("");
-            review.setCampId(1);
+//            review.setCampId(1);
             review.setReviewImage("");
             review.setReviewPoint("5");
             reviewMapper.saveReview(review);
