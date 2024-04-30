@@ -45,6 +45,21 @@ public class UserService {
     private final CampingMapper campingMapper;
     private final ReservationMapper reservationMapper;
 
+    // 네이버
+    public void join(SignUpRequestDTO dto){
+
+        userMapper.save(dto.toEntity(encoder));
+
+    }
+
+
+    // 카카오
+    public void joins(KakaoSignUpRequestDTO dto, String savePath){
+
+        userMapper.save(dto.toEntity(encoder, savePath));
+
+    }
+
     public LoginResult authenticate(LoginRequestDTO dto,
                                     HttpSession session,
                                     HttpServletResponse response) {
@@ -53,7 +68,7 @@ public class UserService {
 
         // 회원 가입을 안한 상태
         if(oneUser == null) {
-            System.out.println(dto.getEmail() + "(은)는 없는 아이디!");
+            System.out.println(dto.getEmail() + "(은)는 없는 이메일 입니다!");
             return NO_EMAIL;
         }
 
@@ -94,20 +109,7 @@ public class UserService {
         return SUCCESS;
     }
 
-    // 네이버
-    public void join(SignUpRequestDTO dto){
 
-        userMapper.save(dto.toEntity(encoder));
-
-    }
-
-
-    // 카카오
-    public void joins(KakaoSignUpRequestDTO dto, String savePath){
-
-        userMapper.save(dto.toEntity(encoder, savePath));
-
-    }
 
     public boolean checkDuplicateValue(String type, String keyword) {
         return userMapper.isDuplicate(type, keyword);
@@ -139,42 +141,6 @@ public class UserService {
 
     }
 
-
-//    public void userInfo(HttpSession session, String email, int campId, int reservationNumber) {
-//
-//        log.info("이메일: {}", email);
-//
-//        // 현재 로그인한 회원의 모든 정보 조회
-//        User oneUser = userMapper.findUser(email.trim());
-//        Camping oneCamping = campingMapper.findCamping(campId);
-//        Reservation reservation = reservationMapper.findReservation(reservationNumber);
-//
-//        // DB 데이터를 보여줄 것만 정제
-//        LoginUserResponseDTO dto = LoginUserResponseDTO.builder()
-//                .id(oneUser.getUserId())
-//                .email(oneUser.getEmail())
-//                .phoneNumber(oneUser.getPhoneNumber())
-//                .name(oneUser.getName())
-//                .auth(oneUser.getAuth())
-//                .loginMethod(oneUser.getLoginMethod().toString())
-//                .campId(oneCamping.getCampId())
-//                .campName(oneCamping.getCampName())
-//                .campAddress(oneCamping.getCampAddress())
-//                .campHomepage(oneCamping.getCampHomepage())
-//                .campNumber(oneCamping.getCampNumber())
-//                .regDate(String.valueOf(reservation.getRegDate()))
-//                .regDates(String.valueOf(reservation.getRegDates()))
-//                .build();
-//
-//        // 세션에 로그인한 회원 정보를 저장
-//        session.setAttribute(LOGIN_KEY, dto);
-//        // 세션 수명 설정
-//        session.setMaxInactiveInterval(60 * 60); // 1시간
-//
-//
-//
-//    }
-
     public void autoLoginClear(HttpServletRequest request, HttpServletResponse response) {
 
         // 1. 자동 로그인 쿠키를 가져온다.
@@ -201,19 +167,6 @@ public class UserService {
 
     }
 
-
-
-    public User getFindUser(String email) {
-
-        User user = userMapper.findUser(email);
-
-        return user;
-
-    }
-
-    public User getUserById(int userId){
-        return userMapper.selectUserById(userId);
-    }
 
 }
 
