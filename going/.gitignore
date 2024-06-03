@@ -1,5 +1,7 @@
 .idea
 
+*.properties
+
 HELP.md
 .gradle
 build/
